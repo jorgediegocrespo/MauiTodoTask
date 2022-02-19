@@ -13,12 +13,12 @@ public class BaseViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public Task OnAppearing()
+    public virtual Task OnAppearing()
     {
         return Task.CompletedTask;
     }
 
-    public Task OnDisappearing()
+    public virtual Task OnDisappearing()
     {
         return Task.CompletedTask;
     }

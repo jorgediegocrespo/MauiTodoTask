@@ -54,7 +54,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Features\TaskDetail\" />
-	  <Folder Include="Features\TaskList\" />
 	  <Folder Include="Services\NavigationService\" />
 	  <Folder Include="Services\AlertDialogService\" />
 	  <Folder Include="Services\LogService\" />
@@ -78,6 +77,12 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Features\TaskList\TaskListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
