@@ -5,6 +5,9 @@
         public BaseContentPage(BaseViewModel viewModel)
         {
             BindingContext = viewModel;
+            viewModel.OnAppearing();
+            viewModel.OnDisappearing();
         }
+        
     }
 }

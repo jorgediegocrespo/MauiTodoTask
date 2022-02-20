@@ -14,7 +14,9 @@ public static class MauiProgram
 
 		builder.Services
 			.AddTransient<TaskListView>()
-			.AddTransient<TaskListViewModel>();
+			.AddTransient<TaskListViewModel>()
+			.AddTransient<TaskDetailView>()
+			.AddTransient<TaskDetailViewModel>();
 
 		return builder.Build();
 	}

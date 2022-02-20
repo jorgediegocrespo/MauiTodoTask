@@ -7,6 +7,7 @@ namespace TaskManager.Features
     {
         private ObservableCollection<TaskItem> taskItems;
         private TaskItem selectedTaskItem;
+        private Command deleteCommand;
 
         public TaskListViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
         {
@@ -63,6 +64,24 @@ namespace TaskManager.Features
         {
             //TODO Navigate to task detail
             await Task.CompletedTask;
+        }
+
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return deleteCommand = deleteCommand ?? new Command(DoDeleteCommandHandler);
+            }
+        }
+
+        private void DoDeleteCommandHandler(object item)
+        {
+            TaskItem itemDelete = item as TaskItem;
+            if (item != null)
+            {
+                TaskItems.Remove(itemDelete);
+            }
+            
         }
     }
 }

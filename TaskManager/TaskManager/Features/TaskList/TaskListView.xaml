@@ -4,10 +4,35 @@
              xmlns:base="clr-namespace:TaskManager.Base"
                       x:Class="TaskManager.TaskListView"
              Title="TaskListView"
+                      x:Name="pageList"
              BackgroundColor="White">
-    <StackLayout>
-        <Label Text="Welcome to .NET MAUI!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-    </StackLayout>
+
+    <CollectionView ItemsSource="{Binding TaskItems}" SelectionChangedCommand="{Binding NavigateToSelectedTaskCommand}"  SelectionMode="Single" SelectedItem="{Binding SelectedTaskItem}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding Name}"  Grid.Column="0" />
+                    <Label Text="{Binding Priority}"  Grid.Column="1"  />
+
+                  
+                    <Image  Grid.Column="2" HeightRequest="50" Source="delete.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference pageList} , Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                    <Button Grid.Column="3" Command="{Binding Source={x:Reference pageList} , Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}" BackgroundColor="Red" Text="Delete"></Button>
+                </Grid>
+                   
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+   
 </base:BaseContentPage>

@@ -53,7 +53,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\TaskDetail\" />
+	  <None Remove="Resources\Images\delete.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Folder Include="Services\NavigationService\" />
 	  <Folder Include="Services\AlertDialogService\" />
 	  <Folder Include="Services\LogService\" />
@@ -80,6 +83,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Features\TaskDetail\TaskDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Features\TaskList\TaskListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
