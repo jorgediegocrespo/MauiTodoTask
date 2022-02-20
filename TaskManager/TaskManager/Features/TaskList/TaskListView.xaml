@@ -7,7 +7,10 @@
                       x:Name="pageList"
              BackgroundColor="White">
 
-    <CollectionView ItemsSource="{Binding TaskItems}" SelectionChangedCommand="{Binding NavigateToSelectedTaskCommand}"  SelectionMode="Single" SelectedItem="{Binding SelectedTaskItem}">
+    <CollectionView ItemsSource="{Binding TaskItems}" 
+                    SelectionChangedCommand="{Binding NavigateToSelectedTaskCommand}"  
+                    SelectionMode="Single" 
+                    SelectedItem="{Binding SelectedTaskItem}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                 <Grid>

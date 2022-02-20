@@ -58,7 +58,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Services\NavigationService\" />
-	  <Folder Include="Services\AlertDialogService\" />
 	  <Folder Include="Services\LogService\" />
 	  <Folder Include="Services\StorageService\" />
 	</ItemGroup>
