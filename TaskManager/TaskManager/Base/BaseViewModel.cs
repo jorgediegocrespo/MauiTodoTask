@@ -4,11 +4,11 @@ namespace TaskManager.Base;
 
 public class BaseViewModel : INotifyPropertyChanged
 {
-    protected readonly IServiceProvider serviceProvider;
+    protected readonly INavigationService navigationService;
 
-    public BaseViewModel(IServiceProvider serviceProvider)
+    public BaseViewModel(INavigationService navigationService)
     {
-        this.serviceProvider = serviceProvider;
+        this.navigationService = navigationService;
     }
 
     public event PropertyChangedEventHandler PropertyChanged;

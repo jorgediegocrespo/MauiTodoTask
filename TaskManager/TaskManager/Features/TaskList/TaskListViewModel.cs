@@ -1,26 +1,32 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace TaskManager.Features
 {
     public class TaskListViewModel : BaseViewModel
     {
-        private ObservableCollection<TaskItem> taskItems;
+        private readonly IStorageService storageService;
+        private List<TaskItem> taskItems;
         private TaskItem selectedTaskItem;
-        private Command deleteCommand;
+        private bool isLoadingTaskItems;
 
-        public TaskListViewModel(IServiceProvider serviceProvider) : base(serviceProvider)
+        public TaskListViewModel(
+            INavigationService navigationService,
+            IStorageService storageService) : base(navigationService)
         {
-            taskItems = new ObservableCollection<TaskItem>();
+            this.storageService = storageService;
+            
+            isLoadingTaskItems = true;
+            taskItems = new List<TaskItem>();
+            
             NavigateToSelectedTaskCommand = new Command(async () => await NavigateToSelectedTaskAsync());
         }
 
-        public ICommand NavigateToSelectedTaskCommand { get; set; }
+        public ICommand NavigateToSelectedTaskCommand { get; private set; }
 
-        public ObservableCollection<TaskItem> TaskItems
+        public List<TaskItem> TaskItems
         {
             get => taskItems;
-            set
+            private set
             {
                 taskItems = value;
                 OnPropertyChanged(nameof(TaskItems));
@@ -37,51 +43,34 @@ namespace TaskManager.Features
             }
         }
 
+        public bool IsLoadingTaskItems
+        {
+            get => isLoadingTaskItems;
+            private set
+            {
+                isLoadingTaskItems = value;
+                OnPropertyChanged(nameof(IsLoadingTaskItems));
+            }
+        }
+
         public override async Task OnAppearing()
         {
             await base.OnAppearing();
-            await LoadTaskItemsAsync();
+            await LoadTaskItems();
         }
 
-        private Task LoadTaskItemsAsync()
+        public async Task LoadTaskItems()
         {
-            TaskItems.Clear();
-
-            for (int i = 1; i <= 100; i++)
-            {
-                TaskItems.Add(new TaskItem
-                {
-                    Name = $"Task {i}",
-                    Description = $"Description {i}",
-                    Priority = (TaskPriority)(i % 3)
-                });
-            }
-
-            return Task.CompletedTask;
+            isLoadingTaskItems = true;
+            TaskItems = await storageService.GetTaskItems();
+            isLoadingTaskItems = false;
         }
 
         public async Task NavigateToSelectedTaskAsync()
         {
-            //TODO Navigate to task detail
-            await Task.CompletedTask;
-        }
-
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                return deleteCommand = deleteCommand ?? new Command(DoDeleteCommandHandler);
-            }
-        }
-
-        private void DoDeleteCommandHandler(object item)
-        {
-            TaskItem itemDelete = item as TaskItem;
-            if (item != null)
-            {
-                TaskItems.Remove(itemDelete);
-            }
-            
+            int taskId = SelectedTaskItem.Id;
+            SelectedTaskItem = null;
+            await navigationService.NavigateToPageDetail(taskId);
         }
     }
 }

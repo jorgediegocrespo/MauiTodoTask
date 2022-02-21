@@ -57,12 +57,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\NavigationService\" />
-	  <Folder Include="Services\LogService\" />
-	  <Folder Include="Services\StorageService\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-pre7" />
 	</ItemGroup>
 

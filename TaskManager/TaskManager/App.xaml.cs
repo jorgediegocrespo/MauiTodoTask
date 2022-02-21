@@ -2,14 +2,10 @@
 
 public partial class App : Application
 {
-    private readonly IServiceProvider serviceProvider;
-
-    public App(IServiceProvider serviceProvider)
+    public App(INavigationService navigationService)
 	{
 		InitializeComponent();
-        this.serviceProvider = serviceProvider;
 
-        var view = serviceProvider.GetService<TaskListView>();
-        MainPage = new NavigationPage(view);
+        MainPage = navigationService.GetInitialPage();
     }
 }

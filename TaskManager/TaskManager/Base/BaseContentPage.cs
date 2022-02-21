@@ -5,9 +5,18 @@
         public BaseContentPage(BaseViewModel viewModel)
         {
             BindingContext = viewModel;
-            viewModel.OnAppearing();
-            viewModel.OnDisappearing();
         }
-        
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            ((BaseViewModel)BindingContext).OnAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            ((BaseViewModel)BindingContext).OnDisappearing();
+        }
     }
 }

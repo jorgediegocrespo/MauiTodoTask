@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:base="clr-namespace:TaskManager.Base"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:TaskManager.Base"
                       x:Class="TaskManager.TaskListView"
-             Title="TaskListView"
+                      Title="TaskListView"
                       x:Name="pageList"
-             BackgroundColor="White">
+                      BackgroundColor="White">
 
     <CollectionView ItemsSource="{Binding TaskItems}" 
                     SelectionChangedCommand="{Binding NavigateToSelectedTaskCommand}"  
+                    SelectedItem="{Binding SelectedTaskItem}"
                     SelectionMode="Single" 
-                    SelectedItem="{Binding SelectedTaskItem}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="80"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="{Binding Name}"  Grid.Column="0" />
-                    <Label Text="{Binding Priority}"  Grid.Column="1"  />
+                    ItemSizingStrategy="MeasureFirstItem" >
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid Margin="10" Padding="10">
+                    <Frame CornerRadius="10" 
+                           HasShadow="true" 
+                           BackgroundColor="LightGrey"
+                           IsClippedToBounds="True"
+                           Padding="0" Margin="0"
+                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-                  
-                    <Image  Grid.Column="2" HeightRequest="50" Source="delete.png">
-                        <Image.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Source={x:Reference pageList} , Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
-                        </Image.GestureRecognizers>
-                    </Image>
+                        <Grid RowDefinitions="*,Auto,5,10" ColumnDefinitions="Auto,*,Auto" 
+                              Padding="10,10,10,0" 
+                              HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                            
+                            <Label Grid.Row="1" Grid.ColumnSpan="2"
+                               Text="{Binding Description}" 
+                               MaxLines="1"
+                               LineBreakMode="TailTruncation"/>
 
-                    <Button Grid.Column="3" Command="{Binding Source={x:Reference pageList} , Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}" BackgroundColor="Red" Text="Delete"></Button>
+                            <Label Grid.Column="2" 
+                               Text="{Binding ExpirationDate, StringFormat='{0:d}'}" 
+                                   HorizontalOptions="End"/>
+
+                            <Label Grid.Column="0" Grid.Row="0" 
+                               Text="{Binding Name}" 
+                                   HorizontalOptions="FillAndExpand"/>
+
+                            <BoxView Grid.Row="3" Grid.ColumnSpan="3" 
+                                 Color="Red" 
+                                 Margin="-10,0"
+                                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                        </Grid>
+                    </Frame>
                 </Grid>
-                   
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 
-   
+
 </base:BaseContentPage>

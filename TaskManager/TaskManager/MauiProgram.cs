@@ -13,6 +13,9 @@ public static class MauiProgram
 			});
 
 		builder.Services
+			.AddSingleton<INavigationService, NavigationService>()
+			.AddSingleton<IAlertDialogService, AlertDialogService>()
+			.AddSingleton<IStorageService, StorageService>()
 			.AddTransient<TaskListView>()
 			.AddTransient<TaskListViewModel>()
 			.AddTransient<TaskDetailView>()
