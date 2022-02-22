@@ -53,16 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\TaskDetail\" />
-	  <Folder Include="Features\TaskList\" />
-	  <Folder Include="Services\NavigationService\" />
-	  <Folder Include="Services\AlertDialogService\" />
-	  <Folder Include="Services\LogService\" />
-	  <Folder Include="Services\StorageService\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="CommunityToolkit.Maui" Version="1.0.0-pre7" />
+	  <None Remove="Resources\Images\delete.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -78,6 +69,15 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Features\TaskDetail\TaskDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Features\TaskList\TaskListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
