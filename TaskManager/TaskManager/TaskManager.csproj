@@ -53,7 +53,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\delete.png" />
+	  <None Remove="Resources\Images\add.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

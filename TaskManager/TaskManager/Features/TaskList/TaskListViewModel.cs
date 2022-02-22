@@ -19,8 +19,10 @@ namespace TaskManager.Features
             TaskItems = new List<TaskItem>();
             
             NavigateToSelectedTaskCommand = new Command(async () => await NavigateToSelectedTaskAsync());
+            AddTaskItemCommand = new Command(async () => await AddTaskItemAsync());
         }
 
+        public ICommand AddTaskItemCommand { get; private set; }
         public ICommand NavigateToSelectedTaskCommand { get; private set; }
 
         public List<TaskItem> TaskItems
@@ -75,6 +77,12 @@ namespace TaskManager.Features
             IsLoadingTaskItems = true;
             int taskId = SelectedTaskItem.Id;
             await navigationService.NavigateToPageDetail(taskId);
+        }
+
+        private async Task AddTaskItemAsync()
+        {
+            IsLoadingTaskItems = true;
+            await navigationService.NavigateToPageDetail(0);
         }
     }
 }

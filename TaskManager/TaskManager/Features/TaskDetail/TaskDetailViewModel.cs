@@ -24,13 +24,10 @@ public class TaskDetailViewModel : BaseViewModel
         
         IsLoadingTaskItem = true;
 
-
-        NavigateBackCommand = new Command(async () => await NavigateBackAsync());
         SaveTaskItemCommand = new Command(async () => await SaveTaskItemAsync());
         RemoveTaskItemCommand = new Command(async () => await RemoveTaskItemAsync());
     }
 
-    public ICommand NavigateBackCommand { get; private set; }
     public ICommand SaveTaskItemCommand { get; private set; }
     public ICommand RemoveTaskItemCommand { get; private set; }
 

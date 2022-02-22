@@ -5,9 +5,40 @@
              x:Class="TaskManager.TaskDetailView"
              Title="TaskDetailView"
              BackgroundColor="White">
-    <StackLayout>
-        <Label Text="Welcome to .NET MAUI!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-    </StackLayout>
+    <Grid RowDefinitions="*,40" ColumnDefinitions="*,*"
+          RowSpacing="10" ColumnSpacing="10" 
+          Padding="10">
+        <StackLayout Grid.ColumnSpan="2" Spacing="5"
+                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+
+            <Label Text="Nombre" TextColor="Black"/>
+            <Entry Text="{Binding Name}"
+                   Placeholder="Indiquie el nombre de la tarea" 
+                   HorizontalOptions="FillAndExpand" />
+
+            <Label Text="Descipción" TextColor="Black" Margin="0,5,0,0"/>
+            <Entry Text="{Binding Description}"
+                   Placeholder="Escriba una descripción" 
+                   HorizontalOptions="FillAndExpand" />
+
+            <Label Text="Fecha límite" TextColor="Black" Margin="0,5,0,0" />
+            <DatePicker Date="{Binding ExpirationDate}" 
+                        HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+        <Button Grid.Row="1" Grid.Column="0" 
+                Text="Guardar" 
+                CornerRadius="20" 
+                BackgroundColor="Green" 
+                TextColor="White"
+                Command="{Binding SaveTaskItemCommand}"
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+        <Button Grid.Row="1" Grid.Column="1" 
+                Text="Eliminar" 
+                CornerRadius="20" 
+                BackgroundColor="Red" 
+                TextColor="White"
+                Command="{Binding RemoveTaskItemCommand}"
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+    </Grid>
 </base:BaseContentPage>
