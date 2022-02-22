@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TaskManager.Services;
+﻿namespace TaskManager.Services;
 
 public class NavigationService : INavigationService
 {
@@ -29,6 +23,7 @@ public class NavigationService : INavigationService
     public async Task NavigateToPageDetail(int taskId)
     {
         var view = serviceProvider.GetService<TaskDetailView>();
+        ((TaskDetailViewModel)view.BindingContext).Init(taskId);
         await Application.Current.MainPage.Navigation.PushAsync(view);
     }
 }

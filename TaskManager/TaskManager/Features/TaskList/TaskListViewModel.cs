@@ -15,8 +15,8 @@ namespace TaskManager.Features
         {
             this.storageService = storageService;
             
-            isLoadingTaskItems = true;
-            taskItems = new List<TaskItem>();
+            IsLoadingTaskItems = true;
+            TaskItems = new List<TaskItem>();
             
             NavigateToSelectedTaskCommand = new Command(async () => await NavigateToSelectedTaskAsync());
         }
@@ -39,7 +39,7 @@ namespace TaskManager.Features
             set
             {
                 selectedTaskItem = value;
-                OnPropertyChanged(nameof(selectedTaskItem));
+                OnPropertyChanged(nameof(SelectedTaskItem));
             }
         }
 
@@ -57,19 +57,23 @@ namespace TaskManager.Features
         {
             await base.OnAppearing();
             await LoadTaskItems();
+            SelectedTaskItem = null;
         }
 
         public async Task LoadTaskItems()
         {
-            isLoadingTaskItems = true;
+            IsLoadingTaskItems = true;
             TaskItems = await storageService.GetTaskItems();
-            isLoadingTaskItems = false;
+            IsLoadingTaskItems = false;
         }
 
         public async Task NavigateToSelectedTaskAsync()
         {
+            if (SelectedTaskItem == null)
+                return;
+
+            IsLoadingTaskItems = true;
             int taskId = SelectedTaskItem.Id;
-            SelectedTaskItem = null;
             await navigationService.NavigateToPageDetail(taskId);
         }
     }

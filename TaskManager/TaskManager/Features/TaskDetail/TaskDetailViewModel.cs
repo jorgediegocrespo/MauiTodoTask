@@ -22,7 +22,7 @@ public class TaskDetailViewModel : BaseViewModel
     {
         this.storageService = storageService;
         
-        isLoadingTaskItem = true;
+        IsLoadingTaskItem = true;
 
 
         NavigateBackCommand = new Command(async () => await NavigateBackAsync());
@@ -104,11 +104,21 @@ public class TaskDetailViewModel : BaseViewModel
         }
     }
 
-    public async Task Init(int taskId)
+    public void Init(int taskId)
+    {
+        id = taskId;
+    }
+
+    public override async Task OnAppearing()
+    {
+        await base.OnAppearing();
+        await LoadTaskItem();
+    }
+
+    private async Task LoadTaskItem()
     {
         IsLoadingTaskItem = true;
-        id = taskId;
-        var taskItem = await storageService.GetTaskItem(taskId);
+        var taskItem = await storageService.GetTaskItem(id);
 
         IsLoadingTaskItem = false;
     }
