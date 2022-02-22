@@ -64,8 +64,11 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <ImageButton BackgroundColor="Gray" 
-                     Source="add" Aspect="AspectFill"
+       
+        <ImageButton 
+           
+Background="gray"
+                     Source="add.png" Aspect="AspectFill"
                      HeightRequest="50" WidthRequest="50" 
                      CornerRadius="25" Margin="15"
                      HorizontalOptions="End" VerticalOptions="End" 
