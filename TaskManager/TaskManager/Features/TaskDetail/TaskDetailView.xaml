@@ -8,8 +8,15 @@
     <Grid RowDefinitions="*,40" ColumnDefinitions="*,*"
           RowSpacing="10" ColumnSpacing="10" 
           Padding="10">
+
+
+        <ActivityIndicator IsVisible="{Binding IsLoadingTaskItem}"
+                           IsRunning="{Binding IsLoadingTaskItem}" 
+                           HorizontalOptions="Center" VerticalOptions="Center" />
+
         <StackLayout Grid.ColumnSpan="2" Spacing="5"
                      HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
+            
 
             <Label Text="Nombre" TextColor="Black"/>
             <Entry Text="{Binding Name}"
@@ -40,5 +47,7 @@
                 TextColor="White"
                 Command="{Binding RemoveTaskItemCommand}"
                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+        
     </Grid>
 </base:BaseContentPage>

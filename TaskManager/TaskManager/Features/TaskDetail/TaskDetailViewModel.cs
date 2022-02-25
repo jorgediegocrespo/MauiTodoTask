@@ -103,7 +103,8 @@ public class TaskDetailViewModel : BaseViewModel
 
     public void Init(int taskId)
     {
-        id = taskId;
+        id = taskId;    
+      
     }
 
     public override async Task OnAppearing()
@@ -116,6 +117,17 @@ public class TaskDetailViewModel : BaseViewModel
     {
         IsLoadingTaskItem = true;
         var taskItem = await storageService.GetTaskItem(id);
+        if(taskItem != null)
+        {
+            this.Priority = taskItem.Priority;
+            this.Description = taskItem.Description;
+            this.ExpirationDate= taskItem.ExpirationDate;
+            this.Name = taskItem.Name;
+        }
+        else
+        {
+            this.ExpirationDate = DateTime.Now.AddDays(1);
+        }
 
         IsLoadingTaskItem = false;
     }
@@ -128,6 +140,16 @@ public class TaskDetailViewModel : BaseViewModel
     private async Task SaveTaskItemAsync()
     {
         IsSaving = true;
+        TaskItem data = new TaskItem()
+        {
+            Id=this.id,
+            Description = this.description,
+            ExpirationDate = this.expirationDate,
+            Name = this.name,
+            Priority = this.priority
+
+        };
+        await storageService.SaveTaskItem(data);
         //TODO 
         await navigationService.NavigateBack();
         IsSaving = false;

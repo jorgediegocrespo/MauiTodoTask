@@ -28,7 +28,7 @@ public class StorageService : IStorageService
 
     public async Task<TaskItem> GetTaskItem(int id)
     {
-        await Task.Delay(3000);
+        //await Task.Delay(3000); TODO
         var taskItem = taskItemList.FirstOrDefault(x => x.Id == id);
         return taskItem;
     }
@@ -41,8 +41,8 @@ public class StorageService : IStorageService
             taskItemList.Add(taskItem);
         else
         {
-            var existingTaskItem = taskItemList.FirstOrDefault(x => x.Id == taskItem.Id);
-            existingTaskItem = taskItem;
+            var elementIndex = taskItemList.FindIndex(x => x.Id == taskItem.Id);
+            taskItemList[elementIndex] = taskItem;
         }
     }
 
