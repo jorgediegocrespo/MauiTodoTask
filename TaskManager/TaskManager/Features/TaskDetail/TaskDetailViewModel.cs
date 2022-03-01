@@ -1,28 +1,31 @@
 ﻿using System.Windows.Input;
+using TaskManager.Resources.Texts;
 
 namespace TaskManager.Features;
 
 public class TaskDetailViewModel : BaseViewModel
 {
     private readonly IStorageService storageService;
+    private readonly IAlertDialogService alertDialogService;
 
     private int id;
     private string name;
     private string description;
     private DateTime expirationDate;
-    private TaskPriority priority;
+    private TaskPriorityInfo selectedPriority;
+    private List<TaskPriorityInfo> priorities;
 
-    private bool isLoadingTaskItem;
-    private bool isSaving;
-    private bool isRemoving;
+    private bool isBusy;
 
     public TaskDetailViewModel(
         INavigationService navigationService,
-        IStorageService storageService) : base(navigationService)
+        IStorageService storageService,
+        IAlertDialogService alertDialogService) : base(navigationService)
     {
         this.storageService = storageService;
+        this.alertDialogService = alertDialogService;
         
-        IsLoadingTaskItem = true;
+        IsBusy = true;
 
         SaveTaskItemCommand = new Command(async () => await SaveTaskItemAsync());
         RemoveTaskItemCommand = new Command(async () => await RemoveTaskItemAsync());
@@ -30,6 +33,16 @@ public class TaskDetailViewModel : BaseViewModel
 
     public ICommand SaveTaskItemCommand { get; private set; }
     public ICommand RemoveTaskItemCommand { get; private set; }
+
+    public int Id
+    {
+        get => id;
+        set
+        {
+            id = value;
+            OnPropertyChanged(nameof(Id));
+        }
+    }
 
     public string Name
     {
@@ -61,43 +74,33 @@ public class TaskDetailViewModel : BaseViewModel
         }
     }
 
-    public TaskPriority Priority
+    public TaskPriorityInfo SelectedPriority
     {
-        get => priority;
+        get => selectedPriority;
         set
         {
-            priority = value;
-            OnPropertyChanged(nameof(Priority));
+            selectedPriority = value;
+            OnPropertyChanged(nameof(SelectedPriority));
         }
     }
 
-    public bool IsLoadingTaskItem
+    public List<TaskPriorityInfo> Priorities
     {
-        get => isLoadingTaskItem;
+        get => priorities;
         private set
         {
-            isLoadingTaskItem = value;
-            OnPropertyChanged(nameof(IsLoadingTaskItem));
+            priorities = value;
+            OnPropertyChanged(nameof(Priorities));
         }
     }
 
-    public bool IsSaving
+    public bool IsBusy
     {
-        get => isSaving;
+        get => isBusy;
         private set
         {
-            isSaving = value;
-            OnPropertyChanged(nameof(IsSaving));
-        }
-    }
-
-    public bool IsRemoving
-    {
-        get => isRemoving;
-        private set
-        {
-            isRemoving = value;
-            OnPropertyChanged(nameof(IsRemoving));
+            isBusy = value;
+            OnPropertyChanged(nameof(IsBusy));
         }
     }
 
@@ -109,35 +112,85 @@ public class TaskDetailViewModel : BaseViewModel
     public override async Task OnAppearing()
     {
         await base.OnAppearing();
+        IsBusy = true;
+        LoadPriorities();
         await LoadTaskItem();
+        IsBusy = false;
+    }
+
+    private void LoadPriorities()
+    {
+        Priorities = new List<TaskPriorityInfo>
+        {
+            new TaskPriorityInfo(TaskPriority.High),
+            new TaskPriorityInfo(TaskPriority.Medium),
+            new TaskPriorityInfo(TaskPriority.Low),
+        };
     }
 
     private async Task LoadTaskItem()
     {
-        IsLoadingTaskItem = true;
         var taskItem = await storageService.GetTaskItem(id);
-
-        IsLoadingTaskItem = false;
-    }
-
-    private async Task NavigateBackAsync()
-    {
-        await navigationService.NavigateBack();
+        if(taskItem != null)
+        {
+            Id = taskItem.Id;
+            SelectedPriority = Priorities.FirstOrDefault(x => x.TaskPriority == taskItem.Priority);
+            Description = taskItem.Description;
+            ExpirationDate= taskItem.ExpirationDate;
+            Name = taskItem.Name;
+        }
+        else
+        {
+            SelectedPriority = Priorities.FirstOrDefault(x => x.TaskPriority == TaskPriority.Medium);
+            ExpirationDate = DateTime.Now.AddDays(1);
+        }
     }
 
     private async Task SaveTaskItemAsync()
     {
-        IsSaving = true;
-        //TODO 
+        if (!(await alertDialogService.ShowDialogConfirmationAsync(AppResource.TaskDetailSave, AppResource.TaskDetailSaveQuestion, AppResource.DialogCancel, AppResource.DialogOk)))
+            return;
+
+        if (!IsValidTaskItem())
+        {
+            await alertDialogService.ShowDialogAsync(AppResource.DialogError, AppResource.TaskDetailSaveError, AppResource.DialogOk);
+            return;
+        }
+
+        IsBusy = true;        
+        TaskItem data = new TaskItem()
+        {
+            Id= id,
+            Description = Description,
+            ExpirationDate = ExpirationDate,
+            Name = Name,
+            Priority = SelectedPriority.TaskPriority
+
+        };
+        await storageService.SaveTaskItem(data);
         await navigationService.NavigateBack();
-        IsSaving = false;
+        IsBusy = false;
+    }
+
+    private bool IsValidTaskItem()
+    {
+        if (string.IsNullOrWhiteSpace(Name))
+            return false;
+
+        if (string.IsNullOrWhiteSpace(Description))
+            return false;
+
+        return true;
     }
 
     private async Task RemoveTaskItemAsync()
     {
-        IsRemoving = true;
+        if (!(await alertDialogService.ShowDialogConfirmationAsync(AppResource.TaskDetailRemove, AppResource.TaskDetailRemoveQuestion, AppResource.DialogCancel, AppResource.DialogOk)))
+            return;
+
+        IsBusy = true;
         await storageService.RemoveTaskItems(id);
         await navigationService.NavigateBack();
-        IsRemoving = false;
+        IsBusy = false;
     }
 }

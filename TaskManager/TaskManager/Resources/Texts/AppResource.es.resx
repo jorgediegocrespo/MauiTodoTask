@@ -117,7 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DialogCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DialogError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DialogOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="TaskDetailDescription" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="TaskDetailDescriptionPlaceholder" xml:space="preserve">
+    <value>Escriba una descripción</value>
+  </data>
+  <data name="TaskDetailExpirationDate" xml:space="preserve">
+    <value>Fecha límite</value>
+  </data>
+  <data name="TaskDetailName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="TaskDetailNamePlaceholder" xml:space="preserve">
+    <value>Indique el nombre de la tarea</value>
+  </data>
+  <data name="TaskDetailPrioridad" xml:space="preserve">
+    <value>Prioridad</value>
+  </data>
+  <data name="TaskDetailRemove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="TaskDetailRemoveQuestion" xml:space="preserve">
+    <value>Se va a eliminar la tarea ¿Desea continuar?</value>
+  </data>
+  <data name="TaskDetailSave" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="TaskDetailSaveError" xml:space="preserve">
+    <value>Debe especificar todos los campos de la tarea</value>
+  </data>
+  <data name="TaskDetailSaveQuestion" xml:space="preserve">
+    <value>Se va a guardar la tarea ¿Desea continuar?</value>
+  </data>
+  <data name="TaskDetailTitle" xml:space="preserve">
+    <value>Detalle</value>
+  </data>
   <data name="TaskListTitle" xml:space="preserve">
     <value>Lista de tareas</value>
+  </data>
+  <data name="TaskPriorityHigh" xml:space="preserve">
+    <value>Alta</value>
+  </data>
+  <data name="TaskPriorityLow" xml:space="preserve">
+    <value>Baja</value>
+  </data>
+  <data name="TaskPriorityMedium" xml:space="preserve">
+    <value>Media</value>
   </data>
 </root>

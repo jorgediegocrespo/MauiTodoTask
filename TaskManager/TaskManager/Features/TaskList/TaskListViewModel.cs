@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace TaskManager.Features
 {
@@ -59,13 +60,12 @@ namespace TaskManager.Features
         {
             await base.OnAppearing();
             await LoadTaskItems();
-            SelectedTaskItem = null;
         }
 
         public async Task LoadTaskItems()
         {
             IsLoadingTaskItems = true;
-            TaskItems = await storageService.GetTaskItems();
+            TaskItems = new List<TaskItem>(await storageService.GetTaskItems());
             IsLoadingTaskItems = false;
         }
 
@@ -76,6 +76,7 @@ namespace TaskManager.Features
 
             IsLoadingTaskItems = true;
             int taskId = SelectedTaskItem.Id;
+            SelectedTaskItem = null;
             await navigationService.NavigateToPageDetail(taskId);
         }
 

@@ -61,11 +61,173 @@ namespace TaskManager.Resources.Texts {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string DialogCancel {
+            get {
+                return ResourceManager.GetString("DialogCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string DialogError {
+            get {
+                return ResourceManager.GetString("DialogError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string DialogOk {
+            get {
+                return ResourceManager.GetString("DialogOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string TaskDetailDescription {
+            get {
+                return ResourceManager.GetString("TaskDetailDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a description.
+        /// </summary>
+        internal static string TaskDetailDescriptionPlaceholder {
+            get {
+                return ResourceManager.GetString("TaskDetailDescriptionPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiration date.
+        /// </summary>
+        internal static string TaskDetailExpirationDate {
+            get {
+                return ResourceManager.GetString("TaskDetailExpirationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string TaskDetailName {
+            get {
+                return ResourceManager.GetString("TaskDetailName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill the name of the task.
+        /// </summary>
+        internal static string TaskDetailNamePlaceholder {
+            get {
+                return ResourceManager.GetString("TaskDetailNamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        internal static string TaskDetailPrioridad {
+            get {
+                return ResourceManager.GetString("TaskDetailPrioridad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string TaskDetailRemove {
+            get {
+                return ResourceManager.GetString("TaskDetailRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The task is about to be deleted. Do you want to continue?.
+        /// </summary>
+        internal static string TaskDetailRemoveQuestion {
+            get {
+                return ResourceManager.GetString("TaskDetailRemoveQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string TaskDetailSave {
+            get {
+                return ResourceManager.GetString("TaskDetailSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must specify all the fields of the task.
+        /// </summary>
+        internal static string TaskDetailSaveError {
+            get {
+                return ResourceManager.GetString("TaskDetailSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The task will be saved. Do you want to continue?.
+        /// </summary>
+        internal static string TaskDetailSaveQuestion {
+            get {
+                return ResourceManager.GetString("TaskDetailSaveQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detail.
+        /// </summary>
+        internal static string TaskDetailTitle {
+            get {
+                return ResourceManager.GetString("TaskDetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Task list.
         /// </summary>
         internal static string TaskListTitle {
             get {
                 return ResourceManager.GetString("TaskListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High.
+        /// </summary>
+        internal static string TaskPriorityHigh {
+            get {
+                return ResourceManager.GetString("TaskPriorityHigh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low.
+        /// </summary>
+        internal static string TaskPriorityLow {
+            get {
+                return ResourceManager.GetString("TaskPriorityLow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium.
+        /// </summary>
+        internal static string TaskPriorityMedium {
+            get {
+                return ResourceManager.GetString("TaskPriorityMedium", resourceCulture);
             }
         }
     }
