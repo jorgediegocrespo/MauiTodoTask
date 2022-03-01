@@ -22,21 +22,20 @@ public class StorageService : IStorageService
 
     public async Task<List<TaskItem>> GetTaskItems()
     {
-        await Task.Delay(3000);
+        await Task.Delay(500);
         return taskItemList;
     }
 
     public async Task<TaskItem> GetTaskItem(int id)
     {
-        //await Task.Delay(3000); TODO
+        await Task.Delay(500);
         var taskItem = taskItemList.FirstOrDefault(x => x.Id == id);
         return taskItem;
     }
 
     public async Task SaveTaskItem(TaskItem taskItem)
     {
-        await Task.Delay(3000);
-
+        await Task.Delay(500);
         if (taskItem.Id == 0)
             taskItemList.Add(taskItem);
         else
@@ -48,7 +47,7 @@ public class StorageService : IStorageService
 
     public async Task RemoveTaskItems(int id)
     {
-        await Task.Delay(3000);
+        await Task.Delay(500);
         taskItemList.RemoveAll(x => x.Id == id);
     }
 }

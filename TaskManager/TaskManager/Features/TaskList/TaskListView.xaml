@@ -2,10 +2,10 @@
 <base:BaseContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:base="clr-namespace:TaskManager.Base"
-                      xmlns:converters="clr-namespace:TaskManager.Converter"
+                      xmlns:texts="clr-namespace:TaskManager.Resources.Texts"
+                       xmlns:converters="clr-namespace:TaskManager.Converter"
                       x:Class="TaskManager.TaskListView"
-                      Title="TaskListView"
-                      x:Name="pageList"
+                      Title="{x:Static texts:AppResource.TaskListTitle}"
                       BackgroundColor="White">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -65,12 +65,10 @@
         </CollectionView>
 
        
-        <ImageButton 
-           
-Background="gray"
-                     Source="add.png" Aspect="AspectFill"
+        <ImageButton Background="black"
+                     Source="add.png" Aspect="AspectFit"
                      HeightRequest="50" WidthRequest="50" 
-                     CornerRadius="25" Margin="15"
+                     CornerRadius="25" Margin="15" Padding="10"
                      HorizontalOptions="End" VerticalOptions="End" 
                      Command="{Binding AddTaskItemCommand}"
                      IsVisible="{Binding IsLoadingTaskItems, Converter={StaticResource invertedBoolConverter}}"/>

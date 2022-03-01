@@ -60,7 +60,6 @@ namespace TaskManager.Features
         {
             await base.OnAppearing();
             await LoadTaskItems();
-            SelectedTaskItem = null;
         }
 
         public async Task LoadTaskItems()
@@ -77,6 +76,7 @@ namespace TaskManager.Features
 
             IsLoadingTaskItems = true;
             int taskId = SelectedTaskItem.Id;
+            SelectedTaskItem = null;
             await navigationService.NavigateToPageDetail(taskId);
         }
 

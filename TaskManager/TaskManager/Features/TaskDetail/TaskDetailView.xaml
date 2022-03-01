@@ -1,53 +1,76 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <base:BaseContentPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                        xmlns:base="clr-namespace:TaskManager.Base"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TaskManager.TaskDetailView"
-             Title="TaskDetailView"
-             BackgroundColor="White">
-    <Grid RowDefinitions="*,40" ColumnDefinitions="*,*"
-          RowSpacing="10" ColumnSpacing="10" 
-          Padding="10">
+                       xmlns:base="clr-namespace:TaskManager.Base"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:texts="clr-namespace:TaskManager.Resources.Texts"
+                       xmlns:converters="clr-namespace:TaskManager.Converter"
+                       x:Class="TaskManager.TaskDetailView"
+                       Title="{x:Static texts:AppResource.TaskDetailTitle}"
+                       BackgroundColor="White">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="RoundedButton" TargetType="Button">
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
 
-        <ActivityIndicator IsVisible="{Binding IsLoadingTaskItem}"
-                           IsRunning="{Binding IsLoadingTaskItem}" 
+            <converters:IntToBoolConverter x:Key="intToBoolConverter" />
+            <converters:InvertedBoolConverter x:Key="invertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}" 
                            HorizontalOptions="Center" VerticalOptions="Center" />
 
-        <StackLayout Grid.ColumnSpan="2" Spacing="5"
-                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
-            
+        <Grid RowDefinitions="*,40" ColumnDefinitions="*,*"
+              RowSpacing="10" ColumnSpacing="10" 
+              Padding="10"
+              IsVisible="{Binding IsBusy, Converter={StaticResource invertedBoolConverter}}">
 
-            <Label Text="Nombre" TextColor="Black"/>
-            <Entry Text="{Binding Name}"
-                   Placeholder="Indiquie el nombre de la tarea" 
-                   HorizontalOptions="FillAndExpand" />
+            <StackLayout Grid.ColumnSpan="2" Spacing="5"
+                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" >
 
-            <Label Text="Descipción" TextColor="Black" Margin="0,5,0,0"/>
-            <Entry Text="{Binding Description}"
-                   Placeholder="Escriba una descripción" 
-                   HorizontalOptions="FillAndExpand" />
 
-            <Label Text="Fecha límite" TextColor="Black" Margin="0,5,0,0" />
-            <DatePicker Date="{Binding ExpirationDate}" 
+                <Label Text="{x:Static texts:AppResource.TaskDetailName}" />
+                <Entry Text="{Binding Name}"
+                       Placeholder="{x:Static texts:AppResource.TaskDetailNamePlaceholder}" 
+                       HorizontalOptions="FillAndExpand" />
+
+                <Label Text="{x:Static texts:AppResource.TaskDetailDescription}" Margin="0,5,0,0"/>
+                <Editor Text="{Binding Description}"
+                        Placeholder="{x:Static texts:AppResource.TaskDetailDescriptionPlaceholder}" 
+                        HeightRequest="100"
                         HorizontalOptions="FillAndExpand" />
-        </StackLayout>
-        <Button Grid.Row="1" Grid.Column="0" 
-                Text="Guardar" 
-                CornerRadius="20" 
-                BackgroundColor="Green" 
-                TextColor="White"
-                Command="{Binding SaveTaskItemCommand}"
-                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
 
-        <Button Grid.Row="1" Grid.Column="1" 
-                Text="Eliminar" 
-                CornerRadius="20" 
-                BackgroundColor="Red" 
-                TextColor="White"
-                Command="{Binding RemoveTaskItemCommand}"
-                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                <Label Text="{x:Static texts:AppResource.TaskDetailPrioridad}" Margin="0,5,0,0" />
+                <Picker ItemsSource="{Binding Priorities}" 
+                        SelectedItem="{Binding SelectedPriority}" 
+                        ItemDisplayBinding="{Binding Text}"
+                        HorizontalOptions="FillAndExpand" />
 
-        
+                <Label Text="{x:Static texts:AppResource.TaskDetailExpirationDate}" Margin="0,5,0,0" />
+                <DatePicker Date="{Binding ExpirationDate}" 
+                            HorizontalOptions="FillAndExpand" />
+            </StackLayout>
+            <Button Grid.Row="1" Grid.Column="0" Style="{StaticResource RoundedButton}"
+                    Text="{x:Static texts:AppResource.TaskDetailSave}" 
+                    BackgroundColor="Green" 
+                    Command="{Binding SaveTaskItemCommand}" />
+
+            <Button Grid.Row="1" Grid.Column="1" Style="{StaticResource RoundedButton}"
+                    Text="{x:Static texts:AppResource.TaskDetailRemove}" 
+                    BackgroundColor="Red" 
+                    Command="{Binding RemoveTaskItemCommand}" 
+                    IsEnabled="{Binding Id, Converter={StaticResource intToBoolConverter}}"/>
+
+
+        </Grid>
     </Grid>
 </base:BaseContentPage>
