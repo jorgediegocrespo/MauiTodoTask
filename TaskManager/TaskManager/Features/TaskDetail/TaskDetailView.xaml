@@ -41,15 +41,29 @@
                 <Label Text="{x:Static texts:AppResource.TaskDetailName}" />
                 <Entry Text="{Binding Name}"
                        Placeholder="{x:Static texts:AppResource.TaskDetailNamePlaceholder}" 
-                       HorizontalOptions="FillAndExpand" />
+                       HorizontalOptions="FillAndExpand" BackgroundColor="White">
+                    <Entry.Triggers>
+                        <Trigger TargetType="Entry" Property="Text" Value="">
+                            <Setter Property="BackgroundColor" Value="Red" />
+                            <Setter Property="PlaceholderColor" Value="White" />
+                        </Trigger>
+                    </Entry.Triggers>
+                </Entry>
 
                 <Label Text="{x:Static texts:AppResource.TaskDetailDescription}" Margin="0,5,0,0"/>
                 <Editor Text="{Binding Description}"
                         Placeholder="{x:Static texts:AppResource.TaskDetailDescriptionPlaceholder}" 
-                        HeightRequest="100"
-                        HorizontalOptions="FillAndExpand" />
+                        HeightRequest="100" BackgroundColor="White"
+                        HorizontalOptions="FillAndExpand" >
+                    <Editor.Triggers>
+                        <Trigger TargetType="Editor" Property="Text" Value="">
+                            <Setter Property="BackgroundColor" Value="Red" />
+                            <Setter Property="PlaceholderColor" Value="White" />
+                        </Trigger>
+                    </Editor.Triggers>
+                </Editor>
 
-                <Label Text="{x:Static texts:AppResource.TaskDetailPrioridad}" Margin="0,5,0,0" />
+                    <Label Text="{x:Static texts:AppResource.TaskDetailPrioridad}" Margin="0,5,0,0" />
                 <Picker ItemsSource="{Binding Priorities}" 
                         SelectedItem="{Binding SelectedPriority}" 
                         ItemDisplayBinding="{Binding Text}"
