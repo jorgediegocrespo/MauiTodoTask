@@ -1,4 +1,5 @@
-﻿using TaskManager.Resources.Texts;
+﻿//TODO Jorge
+using TaskManager.Resources.Texts;
 
 namespace TaskManager.Features
 {

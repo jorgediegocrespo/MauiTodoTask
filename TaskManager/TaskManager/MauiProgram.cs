@@ -12,6 +12,7 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 			});
 
+		//TODO Jorge
 		builder.Services
 			.AddSingleton<INavigationService, NavigationService>()
 			.AddSingleton<IAlertDialogService, AlertDialogService>()

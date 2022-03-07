@@ -1,4 +1,5 @@
-﻿namespace TaskManager.Models
+﻿//TODO Elbrinener
+namespace TaskManager.Models
 {
     public class TaskItem
     {
