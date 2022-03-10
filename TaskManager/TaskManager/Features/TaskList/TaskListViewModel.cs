@@ -1,5 +1,4 @@
-﻿//TODO Elbrinener
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace TaskManager.Features
@@ -7,7 +6,7 @@ namespace TaskManager.Features
     public class TaskListViewModel : BaseViewModel
     {
         private readonly IStorageService storageService;
-        private List<TaskItem> taskItems;
+        private ObservableCollection<TaskItem> taskItems;
         private TaskItem selectedTaskItem;
         private bool isLoadingTaskItems;
 
@@ -18,7 +17,7 @@ namespace TaskManager.Features
             this.storageService = storageService;
             
             IsLoadingTaskItems = true;
-            TaskItems = new List<TaskItem>();
+            TaskItems = new ObservableCollection<TaskItem>();
             
             NavigateToSelectedTaskCommand = new Command(async () => await NavigateToSelectedTaskAsync());
             AddTaskItemCommand = new Command(async () => await AddTaskItemAsync());
@@ -27,7 +26,7 @@ namespace TaskManager.Features
         public ICommand AddTaskItemCommand { get; private set; }
         public ICommand NavigateToSelectedTaskCommand { get; private set; }
 
-        public List<TaskItem> TaskItems
+        public ObservableCollection<TaskItem> TaskItems
         {
             get => taskItems;
             private set
@@ -66,7 +65,7 @@ namespace TaskManager.Features
         public async Task LoadTaskItems()
         {
             IsLoadingTaskItems = true;
-            TaskItems = new List<TaskItem>(await storageService.GetTaskItems());
+            TaskItems = await storageService.GetTaskItems();
             IsLoadingTaskItems = false;
         }
 

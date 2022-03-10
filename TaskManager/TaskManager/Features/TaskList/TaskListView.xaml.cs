@@ -1,4 +1,3 @@
-//TODO Elbrinener
 namespace TaskManager;
 
 public partial class TaskListView

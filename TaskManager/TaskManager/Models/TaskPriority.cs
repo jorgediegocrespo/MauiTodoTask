@@ -1,5 +1,4 @@
-﻿//TODO Elbrinener
-namespace TaskManager.Models
+﻿namespace TaskManager.Models
 {
     public enum TaskPriority
     {

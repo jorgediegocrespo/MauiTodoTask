@@ -1,5 +1,4 @@
-﻿//TODO Jorge
-namespace TaskManager.Services;
+﻿namespace TaskManager.Services;
 
 public interface INavigationService
 {

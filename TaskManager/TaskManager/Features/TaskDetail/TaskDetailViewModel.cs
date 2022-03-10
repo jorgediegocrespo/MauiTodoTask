@@ -1,5 +1,4 @@
-﻿//TODO Jorge
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using TaskManager.Resources.Texts;
 
 namespace TaskManager.Features;

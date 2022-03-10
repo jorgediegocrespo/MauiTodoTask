@@ -1,5 +1,4 @@
-﻿//TODO Jorge
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace TaskManager.Converter;
 

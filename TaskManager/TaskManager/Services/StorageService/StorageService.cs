@@ -1,13 +1,14 @@
-﻿//TODO Elbrinner
+﻿using System.Collections.ObjectModel;
+
 namespace TaskManager.Services;
 
 public class StorageService : IStorageService
 {
-    private List<TaskItem> taskItemList;
+    private ObservableCollection<TaskItem> taskItemList;
 
     public StorageService()
     {
-        taskItemList = new List<TaskItem>();
+        taskItemList = new ObservableCollection<TaskItem>();
         for (int i = 1; i <= 100; i++)
         {
             taskItemList.Add(new TaskItem
@@ -21,7 +22,7 @@ public class StorageService : IStorageService
         }
     }
 
-    public async Task<List<TaskItem>> GetTaskItems()
+    public async Task<ObservableCollection<TaskItem>> GetTaskItems()
     {
         await Task.Delay(500);
         return taskItemList;
@@ -38,17 +39,28 @@ public class StorageService : IStorageService
     {
         await Task.Delay(500);
         if (taskItem.Id == 0)
+        {
+            int maxId = taskItemList?.Max(x => x.Id) ?? 0;
+            taskItem.Id = maxId + 1;
             taskItemList.Add(taskItem);
+        }
         else
         {
-            var elementIndex = taskItemList.FindIndex(x => x.Id == taskItem.Id);
-            taskItemList[elementIndex] = taskItem;
+            for (int i = 0; i < taskItemList.Count; i++)
+            {
+                if (taskItemList[i].Id == taskItem.Id)
+                {
+                    taskItemList[i] = taskItem;
+                    break;
+                }
+            }
         }
     }
 
     public async Task RemoveTaskItems(int id)
     {
         await Task.Delay(500);
-        taskItemList.RemoveAll(x => x.Id == id);
+        var itemToRemove = taskItemList.ToList().First(x => x.Id == id);
+        taskItemList.Remove(itemToRemove);
     }
 }
