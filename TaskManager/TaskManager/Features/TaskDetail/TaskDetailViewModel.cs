@@ -156,12 +156,13 @@ public class TaskDetailViewModel : BaseViewModel
             await alertDialogService.ShowDialogAsync(AppResource.DialogError, AppResource.TaskDetailSaveError, AppResource.DialogOk);
             return;
         }
-
+        
         IsBusy = true;        
         TaskItem data = new TaskItem()
         {
             Id= id,
             Description = Description,
+            TaskDate = DateTime.Now,
             ExpirationDate = ExpirationDate,
             Name = Name,
             Priority = SelectedPriority.TaskPriority

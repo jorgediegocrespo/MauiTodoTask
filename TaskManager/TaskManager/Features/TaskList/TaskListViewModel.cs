@@ -21,10 +21,17 @@ namespace TaskManager.Features
             
             NavigateToSelectedTaskCommand = new Command(async () => await NavigateToSelectedTaskAsync());
             AddTaskItemCommand = new Command(async () => await AddTaskItemAsync());
+            SortByIdCommand = new Command(async () => await SortByIdHandler());
+            SortByPriorityCommand = new Command(async () => await SortByPriorityHandler());
         }
+
+        
 
         public ICommand AddTaskItemCommand { get; private set; }
         public ICommand NavigateToSelectedTaskCommand { get; private set; }
+        
+        public ICommand SortByPriorityCommand { get; private set; }
+        public ICommand SortByIdCommand { get; private set; }
 
         public ObservableCollection<TaskItem> TaskItems
         {
@@ -84,6 +91,20 @@ namespace TaskManager.Features
         {
             IsLoadingTaskItems = true;
             await navigationService.NavigateToPageDetail(0);
+        }
+        
+        private async Task SortByPriorityHandler()
+        {
+            TaskItems = new ObservableCollection<TaskItem>((await storageService.GetTaskItems())
+                .OrderBy(taskItem => taskItem.Priority)
+                .ToList());
+        }
+
+        private async Task SortByIdHandler()
+        {
+            TaskItems = new ObservableCollection<TaskItem>((await storageService.GetTaskItems())
+                .OrderBy(taskItem => taskItem.Id)
+                .ToList());
         }
     }
 }
